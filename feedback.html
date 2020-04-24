@@ -1,88 +1,54 @@
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title></title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script type="text/javascript">
-        $(function () {
-
-            //button click event for thumbs up and thumbs down.
-
-            $("#submit").click(function () {
-
-                //write logic here, aks for phone number, media_url, medi-type, and caption
-
-                if ($("#phonenumber").val() && $("#mediatype").val() && $("#mediaurl").val() && $("#caption").val()) {
-                    window.parent.postMessage(JSON.stringify({
-                        event_code: 'ym-client-event', data: JSON.stringify({
-                            event: {
-                                code: "notification",
-                                data: {
-                                    phoneNumber: $("#phonenumber").val(),
-                                    mediaType: $("#mediatype").val(),
-                                    mediaURL: $("#mediaurl").val(),
-                                    caption: $("#caption").val()
-                                }
-                            }
-                        })
-                    }), '*');
-                    $('#custom :input').attr('disabled', 'disabled');
-                    $('#custom').fadeTo("slow", 0.15, function () {
-                        $(this).find(':input').attr('disabled', 'disabled');
-                        $(this).find('label').css('cursor', 'default');
-                        $('#add').append('Submitted');
-                    });
-                }
-                else {
-                    alert("Please enter Client ID and password");
-                }
-            })
-        })
-
-        $("#thumbsup").click(function () {
-            console.log("function hit");
-            window.parent.postMessage(JSON.stringify({
-                event_code : 'thumbsup', data : JSON.stringify({
-                    event : {
-                        code : "feedback",
-                        data : {
-                            userFeedback : "positive"
-                        }
-                    }
-                })
-            }), '*');
-            console.log("event sent");
-            $('#custom :button').attr('disabled', 'disabled');
-        })
-
-        // $('.like, .dislike').on('click', function () {
-        //     event.preventDefault();
-        //     $('.active').removeClass('active');
-        //     $(this).addClass('active');
-        // });
-    </script>
+    <meta charset="UTF-8">
+    <title>Rating buttons on hover effect</title>
+    <link rel="stylesheet" href="./feedback_style.css">
+    <meta name="viewport" content="width=device-width">
+    <meta name="mobile-web-app-capable" content="yes">
 </head>
 
-<body style="background: #FFFF;">
-    <div class="container" style="padding: 0;" id="custom">
-        <h3 style="color: #FFFFFF"><b>Your Feedback</b></h3>
-        
-        <div class="form-group">
-            <button id="thumbsup" style="font-size:24px"> <i class="fa fa-thumbs-up"
-                    style="color: #2EBDD1"></i></button>
-            <button id="thumbsdown" style="font-size:24px"> <i class="fa fa-thumbs-down"
-                    style="color: #2EBDD1"></i></button>
+<body data-gr-c-s-loaded="true">
+    <!-- partial:index.partial.html -->
+    <!-- ### Scroll to line 17 for effect ###	 -->
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Dosis:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css"
+        integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous">
+
+
+    <!-- 	<div class="reset-container">
+          <a href="#" onclick="reset()" id="reset-btn">Reset</a>
+      </div> -->
+
+    <!-- ### The effect Starts Here ###	 -->
+    <div class="heading">
+        <h2 style="text-align: center; color: white">Customer Feedback</h2>
+    </div>
+
+    <div class="wrapper">
+
+        <div class="container">
+            <div class="image">
+            </div>
+            <div class="filter"></div>
+            <div class="links">
+                <a href="#" class="like-btn" onclick="liked()"><i class="fas fa-thumbs-up"></i></a>
+                <a href="#" class="dislike-btn" onclick="disliked()"><i class="fas fa-thumbs-down"></i></a>
+            </div>
+
         </div>
 
     </div>
 
-</body>
 
+    <!-- partial -->
+    <script src="./handler.js"></script>
+
+
+
+</body>
 
 </html>
