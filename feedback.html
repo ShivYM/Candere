@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript">
+        $(function () {
+
+            //button click event for thumbs up and thumbs down.
+
+            $("#submit").click(function () {
+
+                //write logic here, aks for phone number, media_url, medi-type, and caption
+
+                if ($("#phonenumber").val() && $("#mediatype").val() && $("#mediaurl").val() && $("#caption").val()) {
+                    window.parent.postMessage(JSON.stringify({
+                        event_code: 'ym-client-event', data: JSON.stringify({
+                            event: {
+                                code: "notification",
+                                data: {
+                                    phoneNumber: $("#phonenumber").val(),
+                                    mediaType: $("#mediatype").val(),
+                                    mediaURL: $("#mediaurl").val(),
+                                    caption: $("#caption").val()
+                                }
+                            }
+                        })
+                    }), '*');
+                    $('#custom :input').attr('disabled', 'disabled');
+                    $('#custom').fadeTo("slow", 0.15, function () {
+                        $(this).find(':input').attr('disabled', 'disabled');
+                        $(this).find('label').css('cursor', 'default');
+                        $('#add').append('Submitted');
+                    });
+                }
+                else {
+                    alert("Please enter Client ID and password");
+                }
+            })
+        })
+
+        $("#thumbsup").click(function () {
+            console.log("function hit");
+            window.parent.postMessage(JSON.stringify({
+                event_code : 'thumbsup', data : JSON.stringify({
+                    event : {
+                        code : "feedback",
+                        data : {
+                            userFeedback : "positive"
+                        }
+                    }
+                })
+            }), '*');
+            console.log("event sent");
+            $('#custom :button').attr('disabled', 'disabled');
+        })
+
+        // $('.like, .dislike').on('click', function () {
+        //     event.preventDefault();
+        //     $('.active').removeClass('active');
+        //     $(this).addClass('active');
+        // });
+    </script>
+</head>
+
+<body style="background: #FFFF;">
+    <div class="container" style="padding: 0;" id="custom">
+        <h3 style="color: #FFFFFF"><b>Your Feedback</b></h3>
+        
+        <div class="form-group">
+            <button id="thumbsup" style="font-size:24px"> <i class="fa fa-thumbs-up"
+                    style="color: #2EBDD1"></i></button>
+            <button id="thumbsdown" style="font-size:24px"> <i class="fa fa-thumbs-down"
+                    style="color: #2EBDD1"></i></button>
+        </div>
+
+    </div>
+
+</body>
+
+
+</html>
